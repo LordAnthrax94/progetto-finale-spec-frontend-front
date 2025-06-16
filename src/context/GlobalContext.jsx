@@ -9,14 +9,14 @@ export function GlobalProvider({ children }) {
   const [videogames, setVideogames] = useState("");
 
    const fetchVideoGames = () =>{
-    fetch(`${api_url}/videogames`)
+    fetch(`${api_url}/videogameses`)
     .then(res => res.json())
-    .then(data => setTasks(data))
+    .then(data => setVideogames(data))
     .catch((error) => console.error("Error fetching tasks:", error));    
   };
 
   useEffect(() => {
-    fetchTasks();}, []);
+    fetchVideoGames();}, []);
 
     const value = { videogames, fetchVideoGames };
 

@@ -3,12 +3,14 @@ import { useState, useEffect } from 'react';
 
 export default function Home(){
 
+  const api_url = import.meta.env.VITE_API_URL;
+
   const [videogames, setVideogames] = useState([]);
   const [search, setSearch] = useState('');
 
   useEffect(() => {    
     const fetchData = async () => {
-      const response = await fetch('https://api.example.com/videogames');
+      const response = await fetch(`${api_url}/videogameses`);
       const data = await response.json();
       setVideogames(data);
     };
@@ -29,7 +31,7 @@ export default function Home(){
 
         <div className='videogames-list'>
           {videogames.map((videogame) => (
-            <div className='videogamelist' key={videogame.id}>
+            <div className='videogamelist' key={videogame.title}>
               <img src={videogame.image} alt={videogame.title} />
               <h2>{videogame.title}</h2>              
               <p>{videogame.category}</p>              
