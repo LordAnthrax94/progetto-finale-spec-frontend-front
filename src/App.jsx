@@ -1,5 +1,11 @@
 import { GlobalProvider } from "./context/globalContext"
 import { BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home";
+import ComparePage from "./Pages/ComparePage";
+import FavouritePage from "./Pages/FavoritePage";
+import PageDetails from "./Pages/PageDetails";
+import { NavLink } from "react-router-dom";
 
 function App() {
   
@@ -7,7 +13,12 @@ function App() {
   return (    
       <GlobalProvider>
         <BrowserRouter>
-          
+          <nav className="NavBar">
+            <NavLink to="/" end className="pagina">Home</NavLink>
+            <NavLink to="/Compara" end className="pagina">Compara</NavLink>
+            <NavLink to="/Preferiti" end className="pagina">I tuoi preferiti</NavLink>
+            <NavLink to="/Dettagli" className="pagina">Dettagli sui videogiochi</NavLink>
+          </nav>          
           <Routes>
             <Route path="/" element={<Home />}/>
             <Route path="/Compara" element={<ComparePage />}/>
