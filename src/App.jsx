@@ -25,7 +25,6 @@ function App() {
             <Route path="/Preferiti" element={<FavouritePage />}/>
             <Route path="/Dettagli" element={<PageDetails />}/>
           </Routes>
-
         </BrowserRouter>
       </GlobalProvider>    
   )

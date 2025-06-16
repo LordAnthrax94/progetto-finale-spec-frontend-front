@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+
 export default function Home(){
 
   const [videogames, setVideogames] = useState([]);
@@ -18,17 +19,20 @@ export default function Home(){
   return (
     <div>
       <h1>Esplora un mondo di videogiochi</h1>
-         <input type="text"
+         <input 
+            className='search-input'
+            type="text"
             placeholder="Cerca un gioco..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
          />
-        <div>
+
+        <div className='videogames-list'>
           {videogames.map((videogame) => (
-            <div key={videogame.id}>
-              <h2>{videogame.title}</h2>
-              <p>{videogame.description}</p>
+            <div className='videogamelist' key={videogame.id}>
               <img src={videogame.image} alt={videogame.title} />
+              <h2>{videogame.title}</h2>              
+              <p>{videogame.category}</p>              
             </div>
           ))}
         </div>
