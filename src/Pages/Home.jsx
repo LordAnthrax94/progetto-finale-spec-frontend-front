@@ -31,10 +31,9 @@ export default function Home(){
 
         <div className='videogames-list'>
           {videogames.map((videogame) => (
-            <div className='videogamelist' key={videogame.title}>
-              <img src={videogame.image} alt={videogame.title} />
+            <div className='videogamelist' key={videogame.title}>              
               <h2>{videogame.title}</h2>              
-              <p>{videogame.category}</p>              
+              <h3>{videogame.category}</h3>              
             </div>
           ))}
         </div>
