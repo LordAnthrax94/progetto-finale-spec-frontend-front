@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react';
 import { GlobalContext } from '../context/globalContext';
-
+import GameList from '../Components/GameList';
 
 export default function Home(){
 
@@ -13,7 +13,7 @@ export default function Home(){
 
     const handleSearch = (e) =>{
       e.preventDefault();
-      
+
     }
 
 
@@ -28,15 +28,11 @@ export default function Home(){
             onChange={(e) => setSearch(e.target.value)}
          />
           <button className='search-button' onClick={handleSearch}>Cerca</button>
-
-        <div className='videogames-list'>
-          {Array.isArray(videogames) && videogames.map((videogame) => (
-            <div className='videogamelist' key={videogame.title}>              
-              <h2>{videogame.title}</h2>              
-              <h3>{videogame.category}</h3>              
-            </div>
-          ))}
+        <div>
+          <GameList />
         </div>
+
+        
     </div>
   )
 }
