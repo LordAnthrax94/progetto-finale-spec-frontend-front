@@ -1,21 +1,37 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useCallback, useMemo, useContext } from 'react';
 import { GlobalContext } from '../context/globalContext';
 import GameList from '../Components/GameList';
 
-export default function Home(){
+function debounce(callback, delay){
+  let timer;
+  return (value) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      callback(value);
+    }, delay);
+  }  
+}
 
-  const {videogames, fetchVideoGames} = useContext(GlobalContext);
-  
+export default function Home(){ 
+
+  const { videogames } = useContext(GlobalContext); 
+
   const [search, setSearch] = useState(""); 
+  
 
-  useEffect(() => {
-    fetchVideoGames();}, []);
+  const debaunceSearch = useCallback(
+  debounce(setSearch, 500), []);
+
+  
+ 
+
+  
+  
 
     const handleSearch = (e) =>{
       e.preventDefault();
 
     }
-
 
   return (
     <div>
@@ -25,9 +41,9 @@ export default function Home(){
             type="text"
             placeholder="Cerca un gioco..."
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
-         />
-          <button className='search-button' onClick={handleSearch}>Cerca</button>
+            onChange={(e) => debaunceSearch(e.target.value)}            
+         />      
+                   
         <div>
           <GameList />
         </div>
