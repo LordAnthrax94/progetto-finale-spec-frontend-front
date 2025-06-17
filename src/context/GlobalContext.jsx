@@ -8,12 +8,15 @@ export function GlobalProvider({ children }) {
 
   const [videogames, setVideogames] = useState("");
 
-   const fetchVideoGames = () =>{
-    fetch(`${api_url}/videogameses`)
-    .then(res => res.json())
-    .then(data => setVideogames(data))
-    .catch((error) => console.error("Error fetching tasks:", error));    
-  };
+  const fetchVideoGames = async () => {
+  try {
+    const response = await fetch(`${api_url}/videogameses`);
+    const data = await response.json();
+    setVideogames(data);
+  } catch (error) {
+    console.error("Error fetching tasks:", error);
+  }
+};
 
   useEffect(() => {
     fetchVideoGames();}, []);

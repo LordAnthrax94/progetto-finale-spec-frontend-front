@@ -1,21 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { GlobalContext } from '../context/globalContext';
 
 
 export default function Home(){
 
-  const api_url = import.meta.env.VITE_API_URL;
+  const {videogames, fetchVideoGames} = useContext(GlobalContext);
+  
+  const [search, setSearch] = useState(""); 
 
-  const [videogames, setVideogames] = useState([]);
-  const [search, setSearch] = useState('');
+  useEffect(() => {
+    fetchVideoGames();}, []);
 
-  useEffect(() => {    
-    const fetchData = async () => {
-      const response = await fetch(`${api_url}/videogameses`);
-      const data = await response.json();
-      setVideogames(data);
-    };
-    fetchData();
-  }, []);
+    const handleSearch = (e) =>{
+      e.preventDefault();
+      
+    }
 
 
   return (
@@ -28,9 +27,10 @@ export default function Home(){
             value={search}
             onChange={(e) => setSearch(e.target.value)}
          />
+          <button className='search-button' onClick={handleSearch}>Cerca</button>
 
         <div className='videogames-list'>
-          {videogames.map((videogame) => (
+          {Array.isArray(videogames) && videogames.map((videogame) => (
             <div className='videogamelist' key={videogame.title}>              
               <h2>{videogame.title}</h2>              
               <h3>{videogame.category}</h3>              
