@@ -11,7 +11,7 @@ export default function GameCard({ videogame }) {
       <p>Release Date: {new Date(videogame.releaseDate).toLocaleDateString()}</p>
       <p>Rating: {videogame.rating}</p>
       <p>Descrizione: {videogame.desciption}</p>
-      <p>Prezzo: {videogame.price}</p>
+      <p>Prezzo: {videogame.price} €</p>
     </div>
   );
 }

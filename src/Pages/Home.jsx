@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useContext } from 'react';
+import { useState, useCallback, useEffect, useContext, useRef } from 'react';
 import { GlobalContext } from '../context/globalContext';
 import GameList from '../Components/GameList';
 
@@ -13,20 +13,26 @@ function debounce(callback, delay){
 }
 
 export default function Home(){ 
+  
 
-  const { videogames, fetchSearchResults, searchVideogames } = useContext(GlobalContext); 
+  const { videogames, searchVideogames, fetchSearchResults } = useContext(GlobalContext);
 
-  const [search, setSearch] = useState(""); 
+  const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+  const debounceRef = useRef(debounce(setDebouncedSearch, 500)); 
 
-  const debauncedSearch = useCallback(
-  debounce(fetchSearchResults(search), 500),  
-  [search]
-  );
+  const handleSearch = (e) => {
+    setSearch(e.target.value)
+    debounceRef.current(e.target.value);
+  } 
 
+  useEffect(() => {
+    if (debouncedSearch.trim() !== '') {
+      fetchSearchResults(debouncedSearch);
+    }
+  }, [debouncedSearch, fetchSearchResults]);
 
-
-
-
+  const gameShowList = search.trim() === '' ? videogames : searchVideogames 
 
 
   return (
@@ -37,11 +43,11 @@ export default function Home(){
             type="text"
             placeholder="Cerca un gioco..."
             value={search}
-            onChange={(e) => setSearch(e.target.value)}            
+            onChange={handleSearch}            
          />      
                    
         <div>
-          <GameList videogames={videogames}/>
+          <GameList videogames={Array.isArray(gameShowList) ? gameShowList : []}/>
         </div>
 
         

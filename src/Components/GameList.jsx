@@ -2,9 +2,9 @@ import { useState, useEffect, useContext } from 'react';
 import { GlobalContext } from '../context/globalContext';
 import { Link } from 'react-router-dom';
 
-export default function GameList(){
+export default function GameList({ videogames }){
 
-  const {videogames, fetchVideoGames} = useContext(GlobalContext);
+  const { fetchVideoGames } = useContext(GlobalContext);
 
   // Stato per la gestione del campo di ordinamento e dell'ordine
   const [sortField, setSortField] = useState("title");
@@ -23,12 +23,7 @@ const sortedVideogames = sortByField(
     Array.isArray(videogames) ? videogames : [],
     sortField,
     sortOrder
-  );
-
-// Montaggio del componente con useEffect
-  useEffect(() => {
-    fetchVideoGames();}, []);
-
+  );    
     
   return (
     <div className='videogames-list'>
@@ -39,7 +34,7 @@ const sortedVideogames = sortByField(
           Titolo Z-A {sortField === 'title' && "↓"}
         </button>
           {sortedVideogames.map((videogame) => (
-            <div className='videogamelist' key={videogame.id}>              
+            <div key={videogame.id}>              
               <Link to={`Dettagli/${videogame.id}`}>{videogame.title}</Link>              
               <h3>{videogame.category}</h3>              
             </div>

@@ -6,9 +6,9 @@ export function GlobalProvider({ children }) {
 
   const api_url = import.meta.env.VITE_API_URL;
 
-  const [videogames, setVideogames] = useState("");
+  const [videogames, setVideogames] = useState([]);
   const [videogame, setVideogame] = useState("");
-  const [searchVideogames, setSearchVideogames] = useState("");
+  const [searchVideogames, setSearchVideogames] = useState([]);
 
   // Fetch per la lista completa dei videgames
   const fetchVideoGames = async () => {
@@ -20,6 +20,10 @@ export function GlobalProvider({ children }) {
     console.error("Error fetching tasks:", error);
   }
 };
+
+useEffect(() => {
+    fetchVideoGames();
+  }, []);
 
   const fetchVideoGameDetails = async (id) =>{
    try {
@@ -34,15 +38,15 @@ export function GlobalProvider({ children }) {
 
 const fetchSearchResults = async (query) =>{
   try {
-    const response = await fetch(`${api_url}/videogameses?title=${query}`);
+    const response = await fetch(`${api_url}/videogameses?search=${query}`);
     const data = await response.json();
-    setSearchVideogames(data);
+    setSearchVideogames(data); 
   }catch (error) {
     console.error("Error fetching search results:", error);
   }
 }
 
-    const value = { videogames, fetchVideoGames, videogame, fetchVideoGameDetails, searchVideogames, fetchSearchResults };
+  const value = { videogames, fetchVideoGames, videogame, fetchVideoGameDetails, searchVideogames, fetchSearchResults };
 
   return (
     <GlobalContext.Provider value={value}>
