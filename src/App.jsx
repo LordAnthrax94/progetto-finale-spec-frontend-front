@@ -16,14 +16,13 @@ function App() {
           <nav className="NavBar">
             <NavLink to="/" end className="pagina">Home</NavLink>
             <NavLink to="/Compara" end className="pagina">Compara</NavLink>
-            <NavLink to="/Preferiti" end className="pagina">I tuoi preferiti</NavLink>
-            <NavLink to="/Dettagli" className="pagina">Dettagli sui videogiochi</NavLink>
+            <NavLink to="/Preferiti" end className="pagina">I tuoi preferiti</NavLink>            
           </nav>          
           <Routes>
             <Route path="/" element={<Home />}/>
             <Route path="/Compara" element={<ComparePage />}/>
             <Route path="/Preferiti" element={<FavouritePage />}/>
-            <Route path="/Dettagli" element={<PageDetails />}/>
+            <Route path="/Dettagli/:id" element={<PageDetails />}/>
           </Routes>
         </BrowserRouter>
       </GlobalProvider>    

@@ -14,24 +14,20 @@ function debounce(callback, delay){
 
 export default function Home(){ 
 
-  const { videogames } = useContext(GlobalContext); 
+  const { videogames, fetchSearchResults, searchVideogames } = useContext(GlobalContext); 
 
   const [search, setSearch] = useState(""); 
-  
 
-  const debaunceSearch = useCallback(
-  debounce(setSearch, 500), []);
+  const debauncedSearch = useCallback(
+  debounce(fetchSearchResults(search), 500),  
+  [search]
+  );
 
-  
- 
 
-  
-  
 
-    const handleSearch = (e) =>{
-      e.preventDefault();
 
-    }
+
+
 
   return (
     <div>
@@ -41,11 +37,11 @@ export default function Home(){
             type="text"
             placeholder="Cerca un gioco..."
             value={search}
-            onChange={(e) => debaunceSearch(e.target.value)}            
+            onChange={(e) => setSearch(e.target.value)}            
          />      
                    
         <div>
-          <GameList />
+          <GameList videogames={videogames}/>
         </div>
 
         
