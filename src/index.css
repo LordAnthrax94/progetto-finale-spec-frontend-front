@@ -1,36 +1,5 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* *{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
 
-.NavBar{
-  background-color: rgba(103, 100, 255, 0.486);
-  width: 100%;
-  height: 60px;
-  display: flex;
-  justify-content: space-around; 
-  align-items: center;
-}
-
-.NavBar .pagina{  
-    color: #333;   
-    border-radius: 10px;
-    padding: 15px;
-    text-decoration: none;
-}
-
-.NavBar .pagina:hover{
-    background-color: #333;
-    color: #fff;    
-} */
-
-/* @import "tailwindcss"; */
-/*
-  The following directives require Tailwind CSS and a build process with PostCSS.
-  If you see an error like "Unknown at rule @tailwind", make sure your build tool is set up for Tailwind.
-*/
 
