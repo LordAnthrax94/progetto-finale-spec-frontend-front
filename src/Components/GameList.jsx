@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { GlobalContext } from '../context/globalContext';
 import { Link } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ export default function GameList({ videogames }){
   const [sortField, setSortField] = useState("title");
   const [sortOrder, setSortOrder] = useState(1);
   const [sortCategories, setSortCategories] = useState("");
+  
 
 // Funzione per ordinare i videogiochi in base al campo e all'ordine selezionati
    function sortByField(videogames, field, order) {
@@ -34,6 +35,8 @@ const sortedVideogames = sortByField(
     ? sortedVideogames.filter(vg => vg.category === sortCategories)
     : sortedVideogames;
 
+
+
   return (
     <div className='videogames-list'>
       <button onClick={() => { setSortField('title'); setSortOrder('1'); }}>
@@ -44,7 +47,7 @@ const sortedVideogames = sortByField(
         </button>
           {sortedVideogames.map((videogame) => (
             <div key={videogame.id}>              
-              <Link to={`Dettagli/${videogame.id}`}>{videogame.title}</Link>              
+              <h2><Link to={`Dettagli/${videogame.id}`}>{videogame.title}</Link></h2>             
               <h3>{videogame.category}</h3>
               <button>Aggiungi ai preferiti</button>
               <button>Compara con un altro prodotto</button>              

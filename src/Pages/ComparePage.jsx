@@ -1,4 +1,4 @@
-export default function PageDetails(){
+export default function Compare(){
   return (
     <div>
       <h1>Compara due giochi</h1>

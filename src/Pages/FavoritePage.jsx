@@ -1,4 +1,14 @@
-export default function PageDetails(){
+import { useState } from "react";
+
+export default function FavoritePage({ videogames, videogame }){
+
+  const [favorite, setFavorite] = useState([])
+
+  const addFavorite = Array.isArray(videogames) ? [...videogames] : []
+
+  console.log(addFavorite);
+  
+
   return (
     <div>
       <h1>Lista preferiti</h1>
