@@ -1,6 +1,12 @@
+import { GlobalContext } from "../context/globalContext";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 
 export default function GameCard({ videogame }) {
+
+  const { addToFavorites, removeFromFavorites, favorites } = useContext(GlobalContext)
+
+  const isFavorite = favorites.some(favorite => favorite.id === videogame.id);
 
   return (    
     <div>
@@ -18,7 +24,13 @@ export default function GameCard({ videogame }) {
             </div>
           </div>
         </div>
-        <button>Aggiungi ai preferiti</button>
+         <button onClick={() => 
+            isFavorite 
+              ? removeFromFavorites(videogame.id) 
+              : addToFavorites(videogame)
+          }>
+            {isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
+         </button>
         <button>Compara con un altro prodotto</button> 
       </div>
         <Link to="/">Torna indietro</Link>

@@ -10,6 +10,36 @@ export function GlobalProvider({ children }) {
   const [videogame, setVideogame] = useState("");
   const [searchVideogames, setSearchVideogames] = useState([]);
   const [categoryVideogames, setCategoryVideogames] = useState([])
+  const [removeFavorites, setRemoveFavorites] = useState("")
+
+  const [favorites, setFavorites] = useState(() => {
+    try {
+      const stored = localStorage.getItem("favorites");
+      return stored ? JSON.parse(stored) : [];
+    } catch {
+      return [];
+    }
+  });
+
+   useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+   }, [favorites])
+
+// Funzione per l'aggiunta ai preferiti
+
+   const addToFavorites = (videogame) => {
+      setFavorites(prev =>
+        prev.some(fav => fav.id === videogame.id)
+          ? prev
+          : [...prev, videogame]
+      );
+    };
+
+    // Funzione per la rimozione dai preferiti 
+
+    const removeFromFavorites = (videogameId) => {
+      setFavorites(prev => prev.filter(fav => fav.id !== videogameId));
+    };
 
   // Fetch per la lista completa dei videgames
   const fetchVideoGames = async () => {
@@ -26,6 +56,8 @@ useEffect(() => {
     fetchVideoGames();
   }, []);
 
+  // fetch per il singolo videogioco attraverso l'id
+
   const fetchVideoGameDetails = async (id) =>{
    try {
     const response = await fetch(`${api_url}/videogameses/${id}`);
@@ -35,7 +67,9 @@ useEffect(() => {
     console.error("Error fetching video game details:", error);
     return null;
   }
-}  
+}
+
+// fetch per l'utilizzo dell'input della ricerca attraverso una query inserita dall'utente
 
 const fetchSearchResults = async (query) =>{
   try {
@@ -47,7 +81,7 @@ const fetchSearchResults = async (query) =>{
   }
 }
 
-// fetch per tutte le categorie
+// fetch per tutte le categorie per la selezione delle categorie
 
 const fetchAllCategories = async () => {
   try {
@@ -60,13 +94,13 @@ const fetchAllCategories = async () => {
   }
 }
 
-// fetch per il filtraggio delle categorie
+// fetch per il filtraggio delle categorie se si vuole applicare sulla lista principale
+// (non è utilizzata attivamente nel codice)
 
 const fetchCategories = async (queryCategory) => {
   try {
     const response = await fetch(`${api_url}/videogameses?category=${queryCategory}`);
-    const data = await response.json();
-    const categories = Array.from(new Set(data.map(vg => vg.category)));    
+    const data = await response.json();       
     setVideogames(data);
   }catch (error) {
     console.error("Error fetching search results:", error);
@@ -82,7 +116,10 @@ const fetchCategories = async (queryCategory) => {
     fetchSearchResults, 
     categoryVideogames,
     fetchAllCategories, 
-    fetchCategories 
+    fetchCategories,
+    favorites,
+    addToFavorites,
+    removeFromFavorites
   };
 
   return (
@@ -90,5 +127,4 @@ const fetchCategories = async (queryCategory) => {
       {children}
     </GlobalContext.Provider>
   );
-
 }

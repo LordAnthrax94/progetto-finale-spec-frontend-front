@@ -5,7 +5,7 @@ import CategorySelect from '../Partials/CategorySelect';
 
 export default function GameList({ videogames }){ 
   
-  const { fetchAllCategories } = useContext(GlobalContext);
+  const { fetchAllCategories, addToFavorites, favorites, removeFromFavorites } = useContext(GlobalContext);
 
   // Stato per la gestione del campo di ordinamento e dell'ordine
   const [sortField, setSortField] = useState("title");
@@ -35,7 +35,7 @@ const sortedVideogames = sortByField(
     useEffect(() => {
       fetchAllCategories();
     }, [fetchAllCategories]);
-  
+    
   return (
     <div className='videogames-list'>
       <button onClick={() => { setSortField('title'); setSortOrder('1'); }}>
@@ -45,14 +45,23 @@ const sortedVideogames = sortByField(
           Titolo Z-A {sortField === 'title' && "↓"}
         </button>
 
-          {sortedVideogames.map((videogame) => (
-            <div key={videogame.id}>              
-              <h2><Link to={`Dettagli/${videogame.id}`}>{videogame.title}</Link></h2>             
-              <h3>{videogame.category}</h3>
-              <button>Aggiungi ai preferiti</button>
-              <button>Compara con un altro prodotto</button>              
-            </div>
-          ))}
+          {sortedVideogames.map((videogame) => {            
+            const isFavorite = favorites.some(favorite => favorite.id === videogame.id);
+            return (
+              <div key={videogame.id}>              
+                <h2><Link to={`Dettagli/${videogame.id}`}>{videogame.title}</Link></h2>             
+                <h3>{videogame.category}</h3>
+                <button onClick={() => 
+                  isFavorite 
+                    ? removeFromFavorites(videogame.id) 
+                    : addToFavorites(videogame)
+                }>
+                  {isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
+                </button>
+                <button>Compara con un altro prodotto</button>              
+              </div>
+            );
+          })}
 
           <div>
             <CategorySelect onCategoryChange={setFilteredCategory} />  

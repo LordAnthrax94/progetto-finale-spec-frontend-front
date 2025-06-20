@@ -13,7 +13,7 @@ function App() {
   return (    
       <GlobalProvider>
         <BrowserRouter>
-          <nav className="NavBar">
+          <nav className="bg-gray-800">
             <NavLink to="/" end className="pagina">Home</NavLink>
             <NavLink to="/Compara" end className="pagina">Compara</NavLink>
             <NavLink to="/Preferiti" end className="pagina">I tuoi preferiti</NavLink>            

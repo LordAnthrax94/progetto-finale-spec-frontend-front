@@ -6,15 +6,11 @@ import { GlobalContext } from '../context/globalContext';
 export default function PageDetails() {
   
   const { id } = useParams();
-
-  console.log(id);
-  
-
   const { fetchVideoGameDetails, videogame } = useContext(GlobalContext);  
   
   useEffect(()=>{
     fetchVideoGameDetails(id)
-  }, []);    
+  }, [id, fetchVideoGameDetails]);    
 
     return (
       <div className="flex justify-center mb-5"> 
