@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { GlobalContext } from '../context/globalContext';
 import { Link } from 'react-router-dom';
-import CategorySelect from './CategorySelect';
+import CategorySelect from '../Partials/CategorySelect';
 
 export default function GameList({ videogames }){ 
   
