@@ -5,7 +5,7 @@ import CategorySelect from '../Partials/CategorySelect';
 
 export default function GameList({ videogames }){ 
   
-  const { fetchAllCategories, addToFavorites, favorites, removeFromFavorites } = useContext(GlobalContext);
+  const { fetchAllCategories, addToFavorites, favorites, removeFromFavorites, addToCompare, compareList } = useContext(GlobalContext);
 
   // Stato per la gestione del campo di ordinamento e dell'ordine
   const [sortField, setSortField] = useState("title");
@@ -47,6 +47,7 @@ const sortedVideogames = sortByField(
 
           {sortedVideogames.map((videogame) => {            
             const isFavorite = favorites.some(favorite => favorite.id === videogame.id);
+            const isInCompare = compareList.some(game => game.id === videogame.id);
             return (
               <div key={videogame.id}>              
                 <h2><Link to={`/Dettagli/${videogame.id}`}>{videogame.title}</Link></h2>             
@@ -58,7 +59,12 @@ const sortedVideogames = sortByField(
                 }>
                   {isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
                 </button>
-                <button>Compara con un altro prodotto</button>              
+                <button
+                  onClick={() => addToCompare(videogame)}
+                  disabled={isInCompare}
+                >
+                  {isInCompare ? "In confronto" : "Compara"}
+                </button>             
               </div>
             );
           })}

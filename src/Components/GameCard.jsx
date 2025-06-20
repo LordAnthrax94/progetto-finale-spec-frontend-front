@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 
 export default function GameCard({ videogame }) {
 
-  const { addToFavorites, removeFromFavorites, favorites } = useContext(GlobalContext)
+  const { addToFavorites, removeFromFavorites, favorites, addToCompare, compareList } = useContext(GlobalContext)
+  
 
   const isFavorite = favorites.some(favorite => favorite.id === videogame.id);
+  const isInCompare = compareList.some(game => game.id === videogame.id);
 
   return (    
     <div>
@@ -31,7 +33,12 @@ export default function GameCard({ videogame }) {
           }>
             {isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
          </button>
-        <button>Compara con un altro prodotto</button> 
+        <button
+          onClick={() => addToCompare(videogame)}
+          disabled={isInCompare}
+        >
+          {isInCompare ? "In confronto" : "Compara"}
+        </button>
       </div>
         <Link to="/">Torna alla Home</Link>        
       </div>

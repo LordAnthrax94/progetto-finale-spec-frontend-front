@@ -9,7 +9,20 @@ export function GlobalProvider({ children }) {
   const [videogames, setVideogames] = useState([]);
   const [videogame, setVideogame] = useState("");
   const [searchVideogames, setSearchVideogames] = useState([]);
-  const [categoryVideogames, setCategoryVideogames] = useState([])  
+  const [categoryVideogames, setCategoryVideogames] = useState([])
+  const [compareList, setCompareList] = useState([]);
+
+  const addToCompare = (videogame) => {
+    setCompareList(prev =>
+      prev.some(game => game.id === videogame.id)
+        ? prev
+        : [...prev, videogame]
+    );
+  };
+
+const removeFromCompare = (id) => {
+  setCompareList(prev => prev.filter(game => game.id !== id));
+}; 
 
   const [favorites, setFavorites] = useState(() => {
     try {
@@ -118,7 +131,10 @@ const fetchCategories = async (queryCategory) => {
     fetchCategories,
     favorites,
     addToFavorites,
-    removeFromFavorites
+    removeFromFavorites,
+    compareList,
+    addToCompare,
+    removeFromCompare
   };
 
   return (
