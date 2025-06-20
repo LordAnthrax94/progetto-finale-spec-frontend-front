@@ -12,6 +12,8 @@ export function GlobalProvider({ children }) {
   const [categoryVideogames, setCategoryVideogames] = useState([])
   const [compareList, setCompareList] = useState([]);
 
+// Funzione per aggiungere un elemento al comparatore
+
   const addToCompare = (videogame) => {
     setCompareList(prev =>
       prev.some(game => game.id === videogame.id)
@@ -20,9 +22,13 @@ export function GlobalProvider({ children }) {
     );
   };
 
+// Funzione per la rimozione dal comparatore
+
 const removeFromCompare = (id) => {
   setCompareList(prev => prev.filter(game => game.id !== id));
 }; 
+
+// Funzione per salvataggio in locale
 
   const [favorites, setFavorites] = useState(() => {
     try {
