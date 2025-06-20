@@ -9,7 +9,7 @@ export default function GameCard({ videogame }) {
         <div className="p-4">
           <h2 className="text-xl font-bold text-gray-800">{videogame.title}</h2>
           <p className="text-sm text-gray-500 mb-2">{videogame.category}</p>
-          <p className="text-gray-700 mb-4">{videogame.description}</p>
+          <p className="text-gray-800 mb-4">{videogame.description}</p>
           <div className="flex items-center justify-between">
             <span className="text-lg font-semibold text-blue-600">€{videogame.price}</span>
             <div className="flex items-center">

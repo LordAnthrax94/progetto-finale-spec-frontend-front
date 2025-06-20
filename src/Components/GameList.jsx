@@ -1,15 +1,16 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { GlobalContext } from '../context/globalContext';
 import { Link } from 'react-router-dom';
+import CategorySelect from './CategorySelect';
 
-export default function GameList({ videogames }){
-
-  const { fetchVideoGames } = useContext(GlobalContext);
+export default function GameList({ videogames }){ 
+  
+  const { fetchAllCategories } = useContext(GlobalContext);
 
   // Stato per la gestione del campo di ordinamento e dell'ordine
   const [sortField, setSortField] = useState("title");
-  const [sortOrder, setSortOrder] = useState(1);
-  const [sortCategories, setSortCategories] = useState("");
+  const [sortOrder, setSortOrder] = useState(1);  
+  const [filteredCategory, setFilteredCategory] = useState('');
   
 
 // Funzione per ordinare i videogiochi in base al campo e all'ordine selezionati
@@ -25,18 +26,16 @@ const sortedVideogames = sortByField(
     Array.isArray(videogames) ? videogames : [],
     sortField,
     sortOrder
-  );    
-    
-  const filteredCategories = Array.from(
-    new Set(Array.isArray(videogames) ? videogames.map(vg => vg.category) : [])
   );
+  
+   const filteredVideogames = filteredCategory
+    ? sortedVideogames.filter(videogame => videogame.category === filteredCategory)
+    : [];
 
-  const filteredVideogames = sortCategories
-    ? sortedVideogames.filter(vg => vg.category === sortCategories)
-    : sortedVideogames;
-
-
-
+    useEffect(() => {
+      fetchAllCategories();
+    }, [fetchAllCategories]);
+  
   return (
     <div className='videogames-list'>
       <button onClick={() => { setSortField('title'); setSortOrder('1'); }}>
@@ -45,6 +44,7 @@ const sortedVideogames = sortByField(
         <button onClick={() => { setSortField('title'); setSortOrder('-1'); }}>
           Titolo Z-A {sortField === 'title' && "↓"}
         </button>
+
           {sortedVideogames.map((videogame) => (
             <div key={videogame.id}>              
               <h2><Link to={`Dettagli/${videogame.id}`}>{videogame.title}</Link></h2>             
@@ -55,21 +55,24 @@ const sortedVideogames = sortByField(
           ))}
 
           <div>
-            <select value={sortCategories} onChange={(e) => setSortCategories(e.target.value)}>
-              <option value="">Scegli Categoria</option>
-              {filteredCategories.map(category => (
-                <option key={category} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>            
+            <CategorySelect onCategoryChange={setFilteredCategory} />  
+
+            {filteredCategory && (
+              <div>
+                <h3>Risultati per categoria: {filteredCategory}</h3>
+                {filteredVideogames.length === 0
+                  ? <p>Nessun gioco trovato per questa categoria.</p>
+                  : filteredVideogames.map(videogame => (
+                      <div key={videogame.id}>
+                        <h4>{videogame.title}</h4>
+                        <p>{videogame.category}</p>
+                      </div>
+                    ))
+                }
+              </div>
+            )}          
           </div>
-          {sortCategories && filteredVideogames.map((videogame) => (
-            <div key={videogame.id}>
-              <Link to={`Dettagli/${videogame.id}`}>{videogame.title}</Link>
-              <h3>{videogame.category}</h3>
-            </div>
-          ))}
+          
         </div>
-  )
+  );
 }

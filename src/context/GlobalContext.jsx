@@ -9,6 +9,7 @@ export function GlobalProvider({ children }) {
   const [videogames, setVideogames] = useState([]);
   const [videogame, setVideogame] = useState("");
   const [searchVideogames, setSearchVideogames] = useState([]);
+  const [categoryVideogames, setCategoryVideogames] = useState([])
 
   // Fetch per la lista completa dei videgames
   const fetchVideoGames = async () => {
@@ -46,7 +47,43 @@ const fetchSearchResults = async (query) =>{
   }
 }
 
-  const value = { videogames, fetchVideoGames, videogame, fetchVideoGameDetails, searchVideogames, fetchSearchResults };
+// fetch per tutte le categorie
+
+const fetchAllCategories = async () => {
+  try {
+    const response = await fetch(`${api_url}/videogameses`);
+    const data = await response.json();
+    const categories = Array.from(new Set(data.map(videogame => videogame.category)));
+    setCategoryVideogames(categories);
+  }catch (error) {
+    console.error("Error fetching search results:", error);
+  }
+}
+
+// fetch per il filtraggio delle categorie
+
+const fetchCategories = async (queryCategory) => {
+  try {
+    const response = await fetch(`${api_url}/videogameses?category=${queryCategory}`);
+    const data = await response.json();
+    const categories = Array.from(new Set(data.map(vg => vg.category)));    
+    setVideogames(data);
+  }catch (error) {
+    console.error("Error fetching search results:", error);
+  }
+}
+
+  const value = { 
+    videogames, 
+    fetchVideoGames, 
+    videogame, 
+    fetchVideoGameDetails, 
+    searchVideogames, 
+    fetchSearchResults, 
+    categoryVideogames,
+    fetchAllCategories, 
+    fetchCategories 
+  };
 
   return (
     <GlobalContext.Provider value={value}>
