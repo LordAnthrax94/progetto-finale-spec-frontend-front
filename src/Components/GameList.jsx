@@ -49,7 +49,7 @@ const sortedVideogames = sortByField(
             const isFavorite = favorites.some(favorite => favorite.id === videogame.id);
             return (
               <div key={videogame.id}>              
-                <h2><Link to={`Dettagli/${videogame.id}`}>{videogame.title}</Link></h2>             
+                <h2><Link to={`/Dettagli/${videogame.id}`}>{videogame.title}</Link></h2>             
                 <h3>{videogame.category}</h3>
                 <button onClick={() => 
                   isFavorite 

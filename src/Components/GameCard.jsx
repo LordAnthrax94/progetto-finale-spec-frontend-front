@@ -33,7 +33,7 @@ export default function GameCard({ videogame }) {
          </button>
         <button>Compara con un altro prodotto</button> 
       </div>
-        <Link to="/">Torna indietro</Link>
+        <Link to="/">Torna alla Home</Link>        
       </div>
     );
 }

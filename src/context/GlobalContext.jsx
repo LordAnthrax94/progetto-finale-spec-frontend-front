@@ -9,8 +9,7 @@ export function GlobalProvider({ children }) {
   const [videogames, setVideogames] = useState([]);
   const [videogame, setVideogame] = useState("");
   const [searchVideogames, setSearchVideogames] = useState([]);
-  const [categoryVideogames, setCategoryVideogames] = useState([])
-  const [removeFavorites, setRemoveFavorites] = useState("")
+  const [categoryVideogames, setCategoryVideogames] = useState([])  
 
   const [favorites, setFavorites] = useState(() => {
     try {

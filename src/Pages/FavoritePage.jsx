@@ -14,7 +14,7 @@ export default function FavoritePage({}){
           : favorites.map(fav => (
               <div key={fav.id}>
                 <h1>Qui puoi visualizzare la lista dei tuoi preferiti</h1>
-                 <h2><Link to={`Dettagli/${fav.id}`}>{fav.title}</Link></h2>
+                 <h2><Link to={`/Dettagli/${fav.id}`}>{fav.title}</Link></h2>
                  <p>{fav.description}</p>
                  <button onClick={() => removeFromFavorites(fav.id)}>Rimuovi dai preferiti</button>
               </div>
