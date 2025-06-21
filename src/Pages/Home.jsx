@@ -46,11 +46,11 @@ export default function Home(){
 
 
   return (
-    <div>
-      <h1>Esplora un mondo di videogiochi</h1>
-        <div>
+    <div className="bg-slate-600">
+      <h1 className='flex justify-center text-white font-bold'>Esplora un mondo di videogiochi</h1>
+        <div className='flex justify-center'>
           <input 
-            className='search-input'
+            className='w-400 rounded'
             type="text"
             placeholder="Cerca un gioco..."
             value={search}

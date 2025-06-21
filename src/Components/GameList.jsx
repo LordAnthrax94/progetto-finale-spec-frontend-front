@@ -70,7 +70,7 @@ const sortedVideogames = sortByField(
             );
           })}
 
-          <div>
+          <div className="flex justify-center">
             <CategorySelect onCategoryChange={setFilteredCategory} />  
 
             {filteredCategory && (

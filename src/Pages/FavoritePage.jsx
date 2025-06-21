@@ -7,7 +7,7 @@ export default function FavoritePage({}){
    const { favorites, removeFromFavorites } = useContext(GlobalContext);  
    
   return (
-    <div>
+    <div className="bg-slate-600">
       <h1>Lista preferiti</h1>      
         {favorites.length === 0
           ? <p>La tua pagina è vuota, aggiungi i tuoi giochi preferiti qui!</p>

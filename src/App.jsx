@@ -13,12 +13,12 @@ function App() {
   return (    
       <GlobalProvider>
         <BrowserRouter>
-          <nav className="bg-gray-800 text-white-400">
-            <NavLink to="/" end className="text-white-400">Home</NavLink>
-            <NavLink to="/Compara" end className="text-white-400">Compara</NavLink>
-            <NavLink to="/Preferiti" end className="text-white-400">I tuoi preferiti</NavLink>            
+          <nav className="flex justify-end bg-yellow-500 text-black gap-20 p-5 hover-black">
+            <NavLink to="/" end className="p-1 font-medium">Home</NavLink>
+            <NavLink to="/Compara" end className="p-1 font-medium">Compara</NavLink>
+            <NavLink to="/Preferiti" end className="p-1 font-medium">I tuoi preferiti</NavLink>            
           </nav>          
-          <Routes>
+          <Routes >
             <Route path="/" element={<Home />}/>
             <Route path="/Compara" element={<ComparePage />}/>
             <Route path="/Preferiti" element={<FavouritePage />}/>
