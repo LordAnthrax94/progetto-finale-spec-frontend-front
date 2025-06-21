@@ -20,7 +20,7 @@ export default function Comparatore(){
           <div style={{ display: "flex", gap: "2rem" }}>
             {compareList.map(game => (
               <div key={game.id}>
-                <img src={game.imageUrl} alt={game.title} />
+                 <img className="w-full h-48 object-cover" src={`/img/${game.imageUrl}`} alt={game.title} />
                 <h3>{game.title}</h3>
                 <p>Categoria: {game.category}</p>
                 <p>Prezzo: €{game.price}</p>

@@ -49,7 +49,8 @@ const sortedVideogames = sortByField(
             const isFavorite = favorites.some(favorite => favorite.id === videogame.id);
             const isInCompare = compareList.some(game => game.id === videogame.id);
             return (
-              <div key={videogame.id}>              
+              <div key={videogame.id}>
+                <img className="w-full h-48 object-cover" src={`/img/${videogame.imageUrl}`} alt={videogame.title} />              
                 <h2><Link to={`/Dettagli/${videogame.id}`}>{videogame.title}</Link></h2>             
                 <h3>{videogame.category}</h3>
                 <button onClick={() => 

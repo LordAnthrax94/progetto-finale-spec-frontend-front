@@ -14,13 +14,31 @@ export function GlobalProvider({ children }) {
   const [compareList, setCompareList] = useState([]);
 
 // Funzione per aggiungere un elemento al comparatore
+// (questa funzione è impostata per recuperare l'immagine)
+// effettuando un fetch sull'Id del singolo videogame
 
-  const addToCompare = (videogame) => {
-    setCompareList(prev =>
-      prev.some(game => game.id === videogame.id)
-        ? prev
-        : [...prev, videogame]
-    );
+
+  const addToCompare = async (videogame) => {
+    if (videogame.imageUrl) {
+      setCompareList(prev =>
+        prev.some(game => game.id === videogame.id)
+          ? prev
+          : [...prev, videogame]
+      );
+    } else {
+      try {
+        const response = await fetch(`${api_url}/videogameses/${videogame.id}`);
+        const data = await response.json();
+        const detailedGame = data.videogames || data;
+        setCompareList(prev =>
+          prev.some(game => game.id === detailedGame.id)
+            ? prev
+            : [...prev, detailedGame]
+        );
+      } catch (error) {
+        console.error("Errore nel recupero dettagli videogioco:", error);
+      }
+    }
   };
 
 // Funzione per la rimozione dal comparatore
@@ -44,14 +62,29 @@ const removeFromCompare = (id) => {
     localStorage.setItem("favorites", JSON.stringify(favorites));
    }, [favorites])
 
-// Funzione per l'aggiunta ai preferiti
+// Funzione per l'aggiunta ai preferiti, stessa cosa del comparatore!
 
-   const addToFavorites = (videogame) => {
-      setFavorites(prev =>
-        prev.some(fav => fav.id === videogame.id)
-          ? prev
-          : [...prev, videogame]
-      );
+   const addToFavorites = async (videogame) => {
+      if (videogame.imageUrl) {
+        setFavorites(prev =>
+          prev.some(fav => fav.id === videogame.id)
+            ? prev
+            : [...prev, videogame]
+        );
+      } else {
+        try {
+          const response = await fetch(`${api_url}/videogameses/${videogame.id}`);
+          const data = await response.json();
+          const detailedGame = data.videogames || data;
+          setFavorites(prev =>
+            prev.some(fav => fav.id === detailedGame.id)
+              ? prev
+              : [...prev, detailedGame]
+          );
+        } catch (error) {
+          console.error("Errore nel recupero dettagli videogioco:", error);
+        }
+      }
     };
 
     // Funzione per la rimozione dai preferiti 
@@ -62,14 +95,14 @@ const removeFromCompare = (id) => {
 
   // Fetch per la lista completa dei videgames
   const fetchVideoGames = async () => {
-  try {
-    const response = await fetch(`${api_url}/videogameses`);
-    const data = await response.json();
-    setVideogames(data);
-  } catch (error) {
-    console.error("Error fetching tasks:", error);
-  }
-};
+    try {
+      const response = await fetch(`${api_url}/videogameses`);
+      const data = await response.json();
+      setVideogames(data);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
 
 useEffect(() => {
     fetchVideoGames();
