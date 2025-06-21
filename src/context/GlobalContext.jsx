@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
+import { useCallback } from 'react';
 
 export const GlobalContext = createContext();
 
@@ -76,7 +77,7 @@ useEffect(() => {
 
   // fetch per il singolo videogioco attraverso l'id
 
-  const fetchVideoGameDetails = async (id) =>{
+  const fetchVideoGameDetails = useCallback(async (id) =>{
    try {
     const response = await fetch(`${api_url}/videogameses/${id}`);
     const data = await response.json();  
@@ -85,11 +86,11 @@ useEffect(() => {
     console.error("Error fetching video game details:", error);
     return null;
   }
-}
+}, [api_url]);
 
 // fetch per l'utilizzo dell'input della ricerca attraverso una query inserita dall'utente
 
-const fetchSearchResults = async (query) =>{
+const fetchSearchResults = useCallback(async (query) =>{
   try {
     const response = await fetch(`${api_url}/videogameses?search=${query}`);
     const data = await response.json();
@@ -97,7 +98,7 @@ const fetchSearchResults = async (query) =>{
   }catch (error) {
     console.error("Error fetching search results:", error);
   }
-}
+}, [api_url]);
 
 // fetch per tutte le categorie per la selezione delle categorie
 
