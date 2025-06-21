@@ -34,7 +34,7 @@ const sortedVideogames = sortByField(
 
     useEffect(() => {
       fetchAllCategories();
-    }, [fetchAllCategories]);
+    }, []);
     
   return (
     <div className='videogames-list'>
