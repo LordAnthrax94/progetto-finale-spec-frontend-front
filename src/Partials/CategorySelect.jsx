@@ -11,7 +11,8 @@ export default function CategorySelect({ onCategoryChange }) {
   };
 
   return (
-    <select value={selectedCategory} onChange={handleChange}>
+    <select className='rounded bg-yellow-500 font-medium w-full sm:w-64 md:w-80 px-4 py-2 text-gray-800 shadow focus:outline-none focus:ring-2 focus:ring-yellow-400 transition-all' 
+      value={selectedCategory} onChange={handleChange}>
       <option value="">Tutte le categorie</option>
       {Array.isArray(categoryVideogames) && categoryVideogames.map(category => (
         <option key={category} value={category}>{category}</option>

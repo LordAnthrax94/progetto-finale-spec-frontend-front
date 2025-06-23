@@ -62,12 +62,7 @@ export function GlobalProvider({ children }) {
     console.error("Error fetching video game details:", error);
     return null;
   }
-  }, [api_url]);
-
-  const promises = [fetchVideoGames, fetchVideoGameDetails]
-
-  Promise.allSettled(promises).then((results) =>
-  results.forEach((results) => console.log(results.status)));
+  }, [api_url]);  
   
 // Funzione per aggiungere un elemento al comparatore
 // (questa funzione è impostata per recuperare l'immagine)
