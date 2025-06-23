@@ -17,14 +17,34 @@ export function GlobalProvider({ children }) {
   // Fetch per la lista completa dei videgames
   
    const fetchVideoGames = async () => {
-     try {
-       const response = await fetch(`${api_url}/videogameses`);
-       const data = await response.json();
-       setVideogames(data);
-     } catch (error) {
-       console.error("Error fetching tasks:", error);
-     }
-   };
+    try {
+      const response = await fetch(`${api_url}/videogameses`);
+      const data = await response.json();
+
+      // Per ogni videogioco, faccio una fetch dettagliata per ottenere l'immagine
+      const detailedGamesPromises = data.map(game =>
+        fetch(`${api_url}/videogameses/${game.id}`)
+          .then(res => res.json())
+          .then(detail => {
+            const detailed = detail.videogames || detail;
+            return {
+              ...game,
+              imageUrl: detailed.imageUrl // adatta il campo se diverso
+            };
+          })
+          .catch(() => game) // fallback se errore
+      );
+
+      const detailedGamesResults = await Promise.allSettled(detailedGamesPromises);
+      const detailedGames = detailedGamesResults
+        .filter(result => result.status === "fulfilled")
+        .map(result => result.value);
+
+      setVideogames(detailedGames);
+    } catch (error) {
+      console.error("Error fetching tasks:", error);
+    }
+  };
   
   useEffect(() => {
      fetchVideoGames();
@@ -37,24 +57,18 @@ export function GlobalProvider({ children }) {
     const response = await fetch(`${api_url}/videogameses/${id}`);
     const data = await response.json();  
     setVideogame(data.videogames);
+    return data.videogames
   }catch (error) {
     console.error("Error fetching video game details:", error);
     return null;
   }
   }, [api_url]);
-  
-  
-    //  (async () => {
-    //    const videogamePromise = []
-    //    for(let id = 1; id <= 5; id++){
-    //      const singleVideogame = setVideogame(id);
-    //      videogamePromise.push(singleVideogame)      
-    //    }
-    //    const videogamesWData = await Promise.all(videogamePromise)
-    //    console.log(videogamesWData)
-    //  })();
 
+  const promises = [fetchVideoGames, fetchVideoGameDetails]
 
+  Promise.allSettled(promises).then((results) =>
+  results.forEach((results) => console.log(results.status)));
+  
 // Funzione per aggiungere un elemento al comparatore
 // (questa funzione è impostata per recuperare l'immagine)
 // effettuando un fetch sull'Id del singolo videogame

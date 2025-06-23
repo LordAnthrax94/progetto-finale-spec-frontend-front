@@ -46,7 +46,7 @@ export default function Home(){
 
 
   return (
-    <div className="bg-slate-600">
+    <div className="">
       <h1 className='flex justify-center text-white font-bold'>Esplora un mondo di videogiochi</h1>
         <div className='flex justify-center'>
           <input 

@@ -12,7 +12,7 @@ export default function GameCard({ videogame }) {
   
 
   return (    
-    <div>
+    <div className="mt-10">
       <div className="max-w-sm bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
         <img className="w-full h-48 object-cover" src={`/img/${videogame.imageUrl}`} alt={videogame.title} />
         <div className="p-4">
@@ -27,21 +27,27 @@ export default function GameCard({ videogame }) {
             </div>
           </div>
         </div>
-         <button onClick={() => 
+        <div className="flex justify-center">
+         <button className="bg-green-600 rounded text-white p-1 m-1"
+          onClick={() => 
             isFavorite 
               ? removeFromFavorites(videogame.id) 
               : addToFavorites(videogame)
           }>
             {isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
          </button>
-        <button
+
+        <button className="bg-yellow-600 rounded text-black p-1 m-1"
           onClick={() => addToCompare(videogame)}
           disabled={isInCompare}
         >
           {isInCompare ? "In confronto" : "Compara"}
         </button>
+        </div>
       </div>
-        <Link to="/">Torna alla Home</Link>        
+        <div className="flex justify-center">        
+          <Link className="bg-yellow-500 text-black font-medium rounded mt-5 p-1" to="/">Torna alla Home</Link>        
+        </div>
       </div>
     );
 }

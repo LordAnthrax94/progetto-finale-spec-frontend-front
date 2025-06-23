@@ -13,7 +13,7 @@ export default function PageDetails() {
   }, [id, fetchVideoGameDetails]);    
 
     return (
-      <div className="flex justify-center mb-5 bg-slate-600"> 
+      <div className="flex justify-center mb-5"> 
         <GameCard className="h-5" videogame={videogame} />        
       </div>
     )

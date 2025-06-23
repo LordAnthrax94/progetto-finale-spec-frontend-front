@@ -14,7 +14,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-yellow-500 text-black py-8 px-4 mt-16">
+    <footer className="bg-yellow-500 text-black py-8 px-4">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8 border-b border-gray-700 pb-8">
         {/* Trustpilot */}
         <div>
@@ -89,7 +89,7 @@ export default function Footer() {
       </div>
       {/* Bottom */}
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center pt-6 text-xs text-black gap-4">
-        <div>Copyright © 2025 Instant Gaming - All rights reserved</div>
+        <div>Copyright © 2025 Boolean Gaming - All rights reserved</div>
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-1 font-medium text-black">
             <FaGlobe />
