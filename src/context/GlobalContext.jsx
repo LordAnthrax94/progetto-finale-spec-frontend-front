@@ -6,12 +6,54 @@ export const GlobalContext = createContext();
 export function GlobalProvider({ children }) {
 
   const api_url = import.meta.env.VITE_API_URL;
-
+  
   const [videogames, setVideogames] = useState([]);
   const [videogame, setVideogame] = useState("");
   const [searchVideogames, setSearchVideogames] = useState([]);
   const [categoryVideogames, setCategoryVideogames] = useState([])
   const [compareList, setCompareList] = useState([]);
+
+  
+  // Fetch per la lista completa dei videgames
+  
+   const fetchVideoGames = async () => {
+     try {
+       const response = await fetch(`${api_url}/videogameses`);
+       const data = await response.json();
+       setVideogames(data);
+     } catch (error) {
+       console.error("Error fetching tasks:", error);
+     }
+   };
+  
+  useEffect(() => {
+     fetchVideoGames();
+   }, []); 
+  
+  // fetch per il singolo videogioco attraverso l'id
+  
+  const fetchVideoGameDetails = useCallback(async (id) =>{
+   try {
+    const response = await fetch(`${api_url}/videogameses/${id}`);
+    const data = await response.json();  
+    setVideogame(data.videogames);
+  }catch (error) {
+    console.error("Error fetching video game details:", error);
+    return null;
+  }
+  }, [api_url]);
+  
+  
+    //  (async () => {
+    //    const videogamePromise = []
+    //    for(let id = 1; id <= 5; id++){
+    //      const singleVideogame = setVideogame(id);
+    //      videogamePromise.push(singleVideogame)      
+    //    }
+    //    const videogamesWData = await Promise.all(videogamePromise)
+    //    console.log(videogamesWData)
+    //  })();
+
 
 // Funzione per aggiungere un elemento al comparatore
 // (questa funzione è impostata per recuperare l'immagine)
@@ -93,33 +135,7 @@ const removeFromCompare = (id) => {
       setFavorites(prev => prev.filter(fav => fav.id !== videogameId));
     };
 
-  // Fetch per la lista completa dei videgames
-  const fetchVideoGames = async () => {
-    try {
-      const response = await fetch(`${api_url}/videogameses`);
-      const data = await response.json();
-      setVideogames(data);
-    } catch (error) {
-      console.error("Error fetching tasks:", error);
-    }
-  };
 
-useEffect(() => {
-    fetchVideoGames();
-  }, []);
-
-  // fetch per il singolo videogioco attraverso l'id
-
-  const fetchVideoGameDetails = useCallback(async (id) =>{
-   try {
-    const response = await fetch(`${api_url}/videogameses/${id}`);
-    const data = await response.json();  
-    setVideogame(data.videogames);
-  }catch (error) {
-    console.error("Error fetching video game details:", error);
-    return null;
-  }
-}, [api_url]);
 
 // fetch per l'utilizzo dell'input della ricerca attraverso una query inserita dall'utente
 
@@ -132,6 +148,7 @@ const fetchSearchResults = useCallback(async (query) =>{
     console.error("Error fetching search results:", error);
   }
 }, [api_url]);
+
 
 // fetch per tutte le categorie per la selezione delle categorie
 

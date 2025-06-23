@@ -9,9 +9,7 @@ export default function GameCard({ videogame }) {
 
   const isFavorite = favorites.some(favorite => favorite.id === videogame.id);
   const isInCompare = compareList.some(game => game.id === videogame.id);
-
-
-  console.log(videogame.imageUrl);
+  
 
   return (    
     <div>
