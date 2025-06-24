@@ -148,12 +148,32 @@ const removeFromCompare = (id) => {
 
 // fetch per l'utilizzo dell'input della ricerca attraverso una query inserita dall'utente
 
-const fetchSearchResults = useCallback(async (query) =>{
+const fetchSearchResults = useCallback(async (query) => {
   try {
     const response = await fetch(`${api_url}/videogameses?search=${query}`);
     const data = await response.json();
-    setSearchVideogames(data); 
-  }catch (error) {
+
+    // Per ogni risultato, fetch dettagliato per ottenere imageUrl
+    const detailedGamesPromises = data.map(game =>
+      fetch(`${api_url}/videogameses/${game.id}`)
+        .then(res => res.json())
+        .then(detail => {
+          const detailed = detail.videogames || detail;
+          return {
+            ...game,
+            imageUrl: detailed.imageUrl
+          };
+        })
+        .catch(() => game)
+    );
+
+    const detailedGamesResults = await Promise.allSettled(detailedGamesPromises);
+    const detailedGames = detailedGamesResults
+      .filter(result => result.status === "fulfilled")
+      .map(result => result.value);
+
+    setSearchVideogames(detailedGames);
+  } catch (error) {
     console.error("Error fetching search results:", error);
   }
 }, [api_url]);
