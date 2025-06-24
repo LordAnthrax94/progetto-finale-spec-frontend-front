@@ -1,6 +1,8 @@
-import { useState, useCallback, useEffect, useContext, useRef } from 'react';
+import { useState, useEffect, useContext, useRef } from 'react';
 import { GlobalContext } from '../context/globalContext';
 import GameList from '../Components/GameList';
+import CategoryGameList from '../Components/CategoryGameList'
+import CategorySelect from '../Partials/CategorySelect';
 
 function debounce(callback, delay){
   let timer;
@@ -12,25 +14,19 @@ function debounce(callback, delay){
   }  
 }
 
-export default function Home(){ 
-  
+export default function Home(){   
 
-  const { videogames, searchVideogames, fetchSearchResults } = useContext(GlobalContext);
+  const { videogames, searchVideogames, fetchSearchResults,fetchAllCategories } = useContext(GlobalContext);
 
-  const [search, setSearch] = useState("");
-  const [message, setMessage] = useState("");
+  const [search, setSearch] = useState("");  
   const [debouncedSearch, setDebouncedSearch] = useState('');
   const debounceRef = useRef(debounce(setDebouncedSearch, 500)); 
+  const [filteredCategory, setFilteredCategory] = useState('');
 
   const handleSearch = (e) => {
     setSearch(e.target.value)
     debounceRef.current(e.target.value);
-    if( e.target.value.trim() === '') {
-      setMessage("Non è stato trvato nessun gioco con questo nome")
-    }else {
-      setMessage("");
-    }
-  } 
+  };    
 
   useEffect(() => {
     if (debouncedSearch.trim() !== '') {
@@ -44,14 +40,17 @@ export default function Home(){
     Array.isArray(gameShowList) &&
     gameShowList.length === 0; 
 
+    useEffect(() => {
+    fetchAllCategories();
+  }, []);
 
   return (
-    <div className="">
-      <h1 className='flex justify-center text-yellow-500 font-bold m-5 text-4xl'>Esplora un mondo di videogiochi</h1>
+    <div>
+        <h1 className='flex justify-center text-yellow-500 font-bold m-5 text-4xl'>Esplora un mondo di videogiochi</h1>
         <div className="relative w-full max-w-9xl mx-auto mb-8  overflow-hidden shadow-lg">
           <video
             className="w-full h-80 object-cover"
-            src="/Fortnite_Cinematic.mp4"
+            src="" // INSERIRE L'SRC DEL VIDEO CON GAMEPLAY VARI!!
             autoPlay
             loop
             muted
@@ -69,15 +68,23 @@ export default function Home(){
             value={search}
             onChange={handleSearch}            
           />
-            {message && <p className='message'>{message}</p>}
-            {noResults && <p className='message'>Non è stato trovato nessun gioco con questo nome</p>}
-         </div>      
-                   
-        <div>
+        </div>          
+        {noResults && (
+          <div className="flex justify-center my-4">
+            <p className='text-yellow-500 font-medium'>Non è stato trovato nessun gioco con questo nome</p>
+          </div>
+        )}
+        {!noResults && (
           <GameList videogames={Array.isArray(gameShowList) ? gameShowList : []}/>
+        )}
+        <div className="flex justify-center my-8">
+          <CategorySelect onCategoryChange={setFilteredCategory} />
         </div>
-
-        
+        <div className='mb-6'>
+          {filteredCategory && (
+            <CategoryGameList videogames={videogames} category={filteredCategory} />
+          )}
+        </div>               
     </div>
   )
 }

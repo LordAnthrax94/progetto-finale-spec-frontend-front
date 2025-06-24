@@ -20,7 +20,7 @@ export default function FavoritePage({}){
             <div key={fav.id} className="max-w-sm bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
               <img className="w-full h-48 object-cover" src={`/img/${fav.imageUrl}`} alt={fav.title} />
               <div className="p-4">
-                <h2 className="text-xl font-bold text-gray-800">{fav.title}</h2>
+                <h2 className="text-xl font-bold text-gray-800"><Link to={`/Dettagli/${fav.id}`}>{fav.title}</Link></h2>
                 <p className="text-sm text-gray-500 mb-2">{fav.category}</p>
                 <p className="text-gray-800 mb-4">{fav.description}</p>
                 <div className="flex items-center justify-between">

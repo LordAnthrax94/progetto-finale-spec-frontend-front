@@ -13,7 +13,7 @@ function App() {
 
   return (    
       <GlobalProvider>
-        <div className="bg-slate-500 min-h-screen">
+        <div className="bg-slate-500 min-h-screen flex flex-col">
         <BrowserRouter>
           <nav className="fixed top-0 left-0 w-full z-50 flex justify-end bg-yellow-500 text-black gap-20 p-5 shadow">
             <NavLink to="/" end className="p-1 font-medium">Home</NavLink>

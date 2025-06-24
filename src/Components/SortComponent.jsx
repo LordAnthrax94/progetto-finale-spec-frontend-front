@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 export default function SortButton({ children, videogames }) {
 
@@ -6,20 +6,15 @@ export default function SortButton({ children, videogames }) {
   const [sortOrder, setSortOrder] = useState(1);  
 
 // Funzione per ordinare i videogiochi in base al campo e all'ordine selezionati
-   function sortByField(videogames, field, order) {
-      return [...videogames].sort((a, b) =>
-        order === '1'
-          ? a[field].localeCompare(b[field])
-          : b[field].localeCompare(a[field])
-      );
-    }
-// Ordinamento dei videogiochi in base al campo e all'ordine selezionati
-  const sortedVideogames = sortByField(
-    Array.isArray(videogames) ? videogames : [],
-    sortField,
-    sortOrder
-  );
-   
+    const sortedVideogames = useMemo(() => {
+    if (!Array.isArray(videogames)) return [];
+    return [...videogames].sort((a, b) =>
+      sortOrder === '1'
+        ? a[sortField].localeCompare(b[sortField])
+        : b[sortField].localeCompare(a[sortField])
+    );
+  }, [videogames, sortField, sortOrder]);
+     
   return (
     <>
       <div className='flex justify-center mb-4'>
