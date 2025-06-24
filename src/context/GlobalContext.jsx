@@ -116,7 +116,7 @@ const removeFromCompare = (id) => {
 // Funzione per l'aggiunta ai preferiti, stessa cosa del comparatore!
 
    const addToFavorites = async (videogame) => {
-      if (videogame.imageUrl) {
+      if (videogame.imageUrl && videogame.price && videogame.rating) {
         setFavorites(prev =>
           prev.some(fav => fav.id === videogame.id)
             ? prev

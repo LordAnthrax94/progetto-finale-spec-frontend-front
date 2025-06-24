@@ -3,7 +3,7 @@ import { GlobalContext } from "../context/globalContext";
 
 export default function Comparatore(){
 
-  const { compareList, removeFromCompare, removeFromFavorites, favorites } = useContext(GlobalContext);
+  const { compareList, removeFromCompare, favorites, addToFavorites, removeFromFavorites } = useContext(GlobalContext);
   
   // const isFavorite = favorites.some(favorite => favorite.id === game.id);
 
@@ -21,7 +21,9 @@ export default function Comparatore(){
             <p className="text-center text-yellow-500 font-medium mb-4">Hai selezionato {compareList.length} videogiochi da confrontare.</p>
           </div>
           <div className="flex flex-wrap justify-center gap-8">
-            {compareList.map(game => (
+            {compareList.map(game => {
+              const isFavorite = favorites.some(favorite => favorite.id === game.id);
+              return (
               <div key={game.id} className="max-w-sm bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                   <img className="w-full h-48 object-cover" src={`/img/${game.imageUrl}`} alt={game.title} />
                 <div className="p-1">
@@ -36,10 +38,23 @@ export default function Comparatore(){
                   </div>
                   <div className="flex justify-center">
                     <button className="bg-yellow-600 rounded text-black p-1 m-1" onClick={() => removeFromCompare(game.id)}>Rimuovi dal confronto</button>
+                  </div>
+                  <div>
+                    <button
+                        className="bg-green-600 rounded text-white p-1 m-1"
+                        onClick={() =>
+                          isFavorite
+                            ? removeFromFavorites(game.id)
+                            : addToFavorites(game)
+                        }
+                      >
+                        {isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
+                      </button>
                   </div>                
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}

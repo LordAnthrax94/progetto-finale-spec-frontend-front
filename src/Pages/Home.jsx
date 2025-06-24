@@ -48,9 +48,22 @@ export default function Home(){
   return (
     <div className="">
       <h1 className='flex justify-center text-yellow-500 font-bold m-5 text-4xl'>Esplora un mondo di videogiochi</h1>
+        <div className="relative w-full max-w-9xl mx-auto mb-8  overflow-hidden shadow-lg">
+          <video
+            className="w-full h-80 object-cover"
+            src="/Fortnite_Cinematic.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
+          <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+            <p className="text-white text-2xl font-semibold">Scopri nuovi mondi, trova il tuo prossimo gioco preferito!</p>
+          </div>
+        </div>      
         <div className='flex justify-center'>
           <input 
-            className="w-full max-w-xl px-6 py-3 rounded-lg border-2 border-purple-300 focus:border-yellow-500 focus:outline-none text-lg shadow-md"
+            className="w-full max-w-xl px-6 py-3 rounded-lg border-2 border-yellow-300 focus:border-yellow-500 focus:outline-none text-lg shadow-md"
             type="text"
             placeholder="Cerca un gioco..."
             value={search}
