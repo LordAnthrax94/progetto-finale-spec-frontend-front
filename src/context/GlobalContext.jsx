@@ -70,7 +70,7 @@ export function GlobalProvider({ children }) {
 
 
   const addToCompare = async (videogame) => {
-    if (videogame.imageUrl) {
+    if (videogame.imageUrl && videogame.price && videogame.rating) {
       setCompareList(prev =>
         prev.some(game => game.id === videogame.id)
           ? prev

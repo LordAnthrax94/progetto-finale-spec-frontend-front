@@ -39,11 +39,25 @@ const sortedVideogames = sortByField(
   return (
     <div>
       <div className='flex justify-center'>
-        <button className='bg-yellow-500 m-3 p-1 rounded font-medium' onClick={() => { setSortField('title'); setSortOrder('1'); }}>
-          Titolo A-Z {sortField === 'title' && "↑"}
+        <button
+          className={`m-3 p-1 rounded font-medium transition-colors duration-200 ${
+            sortField === 'title' && sortOrder === '1'
+              ? 'bg-yellow-500 text-black'
+              : 'bg-gray-300 text-gray-700'
+          }`}
+          onClick={() => { setSortField('title'); setSortOrder('1'); }}
+        >
+          Titolo A-Z {sortField === 'title' && sortOrder === '1' && "↑"}
         </button>
-        <button className='bg-yellow-500 m-3 p-1 rounded font-medium' onClick={() => { setSortField('title'); setSortOrder('-1'); }}>
-          Titolo Z-A {sortField === 'title' && "↓"}
+        <button
+          className={`m-3 p-1 rounded font-medium transition-colors duration-200 ${
+            sortField === 'title' && sortOrder === '-1'
+              ? 'bg-yellow-500 text-black'
+              : 'bg-gray-300 text-gray-700'
+          }`}
+          onClick={() => { setSortField('title'); setSortOrder('-1'); }}
+        >
+          Titolo Z-A {sortField === 'title' && sortOrder === '-1' && "↓"}
         </button>
       </div>
 
