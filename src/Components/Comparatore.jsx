@@ -36,18 +36,18 @@ export default function Comparatore(){
                   <div className="flex items-center mt-1">                  
                     <p><strong>Rating:</strong> <span className="text-sm text-gray-700">{game.rating}/10</span><span className="text-yellow-400 text-sm mr-1">★</span></p>
                   </div>
-                  <div className="flex justify-center">
-                    <button className="bg-yellow-600 rounded text-black p-1 m-1" onClick={() => removeFromCompare(game.id)}>Rimuovi dal confronto</button>
-                  </div>
-                  <div>
+                  <div className="flex justify-center mt-2">
+                    <button 
+                      className="bg-yellow-600 rounded text-black p-1 m-1" 
+                      onClick={() => removeFromCompare(game.id)}>Rimuovi dal confronto</button>
+                  
                     <button
                         className="bg-green-600 rounded text-white p-1 m-1"
                         onClick={() =>
                           isFavorite
                             ? removeFromFavorites(game.id)
                             : addToFavorites(game)
-                        }
-                      >
+                        }>
                         {isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
                       </button>
                   </div>                
