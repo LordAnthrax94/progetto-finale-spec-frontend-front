@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 
 public/img/Warhammer 40,00 Space Marine 2 Gameplay (No Commentary) [ZOfdBXhy94A].f628.mp4
+public/img/*.mp4
