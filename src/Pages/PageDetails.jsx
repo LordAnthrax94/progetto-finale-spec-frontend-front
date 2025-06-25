@@ -10,11 +10,20 @@ export default function PageDetails() {
   
   useEffect(()=>{
     fetchVideoGameDetails(id)
-  }, [id, fetchVideoGameDetails]);    
+  }, [id, fetchVideoGameDetails]); 
+  
+  const backgroundImage = videogame?.imageUrl
+    ? { backgroundImage: `url(/img/${videogame.imageUrl})` }
+    : {};
 
     return (
-      <div className="flex justify-center mb-5"> 
-        <GameCard className="h-5" videogame={videogame} />        
+      <div className="relative min-h-screen flex flex-col items-center px-4 bg-cover bg-center"
+        style={backgroundImage}
+      >
+        <div className="absolute inset-0 bg-black bg-opacity-30 z-0"></div>
+        <div className="relative z-10 w-full flex justify-center flex-1">
+          <GameCard videogame={videogame} />        
+        </div> 
       </div>
     )
 }
