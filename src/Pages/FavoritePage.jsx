@@ -7,7 +7,7 @@ export default function FavoritePage({}){
    const { favorites, removeFromFavorites } = useContext(GlobalContext);  
    
   return (
-    <div className="min-h-screen flex flex-col items-center px-4">
+    <div className="min-h-screen flex flex-col items-center px-4 bg-[url('/img/Portal2LoveCube.jpg')] bg-cover bg-center min-h-screen">
       <div className="w-full flex flex-col items-center mt-8 mb-8">
         <h1 className="text-4xl font-bold text-yellow-500 text-center mb-2">Lista preferiti</h1>
         <h2 className="text-lg text-yellow-500 text-center mb-4">Qui puoi visualizzare la lista dei tuoi preferiti</h2>

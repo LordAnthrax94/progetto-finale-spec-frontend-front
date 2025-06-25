@@ -45,19 +45,19 @@ export default function Home(){
   }, []);
 
   return (
-    <div>
+    <div className="bg-[url('/img/elden-ring-game-wallpaper.jpg')] bg-cover bg-center min-h-screen flex flex-col">
         <h1 className='flex justify-center text-yellow-500 font-bold m-5 text-4xl'>Esplora un mondo di videogiochi</h1>
         <div className="relative w-full max-w-9xl mx-auto mb-8  overflow-hidden shadow-lg">
           <video
-            className="w-full h-80 object-cover"
-            src="" // INSERIRE L'SRC DEL VIDEO CON GAMEPLAY VARI!!
+            className="w-full h-[220px] sm:h-[320px] md:h-[450px] lg:h-[600px] object-cover"
+            src="/img/Warhammer 40,00 Space Marine 2 Gameplay (No Commentary) [ZOfdBXhy94A].f628.mp4" // INSERIRE L'SRC DEL VIDEO CON GAMEPLAY VARI!!
             autoPlay
             loop
             muted
             playsInline
           />
           <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-            <p className="text-white text-2xl font-semibold">Scopri nuovi mondi, trova il tuo prossimo gioco preferito!</p>
+            <p className="text-white text-2xl font-semibold">Scopri nuovi mondi, trova il gioco che fa per te!</p>
           </div>
         </div>      
         <div className='flex justify-center'>
