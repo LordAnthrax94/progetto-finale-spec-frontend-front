@@ -45,7 +45,9 @@ export default function Home(){
   }, []);
 
   return (
-    <div className="bg-[url('/img/elden-ring-game-wallpaper.jpg')] bg-cover bg-center min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col items-center px-4 bg-[url('/img/elden-ring-game-wallpaper.jpg')] bg-cover bg-center flex flex-col">
+      <div className="absolute inset-0 w-full h-full bg-black bg-opacity-30 z-0"></div>
+      <div className="relative z-10 w-full">
         <h1 className='flex justify-center text-yellow-500 font-bold m-5 text-4xl'>Esplora un mondo di videogiochi</h1>
         <div className="relative w-full max-w-9xl mx-auto mb-8  overflow-hidden shadow-lg">
           <video
@@ -85,6 +87,7 @@ export default function Home(){
             <CategoryGameList videogames={videogames} category={filteredCategory} />
           )}
         </div>               
+      </div>
     </div>
   )
 }
