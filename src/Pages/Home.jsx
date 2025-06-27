@@ -52,7 +52,7 @@ export default function Home(){
         <div className="relative w-full max-w-9xl mx-auto mb-8  overflow-hidden shadow-lg">
           <video
             className="w-full h-[220px] sm:h-[320px] md:h-[450px] lg:h-[600px] object-cover"
-            src="/img/Warhammer 40,00 Space Marine 2 Gameplay (No Commentary) [ZOfdBXhy94A].f628.mp4" // INSERIRE L'SRC DEL VIDEO CON GAMEPLAY VARI!!
+            src="/img/Warhammer 40,00 Space Marine 2 Gameplay (No Commentary) [ZOfdBXhy94A].f628.mp4" 
             autoPlay
             loop
             muted
