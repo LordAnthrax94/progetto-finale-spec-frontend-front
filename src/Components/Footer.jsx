@@ -15,8 +15,7 @@ import {
 export default function Footer() {
   return (
     <footer className="bg-yellow-500 text-black py-8 px-4">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8 border-b border-gray-700 pb-8">
-        {/* Trustpilot */}
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-8 border-b border-gray-700 pb-8">        
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="text-green-500 text-xl">★</span>
@@ -29,8 +28,7 @@ export default function Footer() {
             <span className="bg-gray-300 text-white rounded px-2 py-1 text-lg">★</span>
           </div>
           <div className="text-xs text-black">TrustScore 4.7 | 63,136 reviews</div>
-        </div>
-        {/* Links */}
+        </div>        
         <div className="flex flex-col gap-2 text-sm">
           <a href="#" className="hover:text-white font-medium">Terms of Use</a>
           <a href="#" className="hover:text-white font-medium">Privacy policy</a>
@@ -48,8 +46,7 @@ export default function Footer() {
             <FaNewspaper className="text-white" />
             <span>Find the latest video game news</span>
           </div>
-        </div>
-        {/* Social */}
+        </div>      
         <div className="flex flex-col items-center gap-4">
           <div className="flex gap-4 text-2xl">
             <FaDiscord className="hover:text-white cursor-pointer" />
@@ -86,8 +83,7 @@ export default function Footer() {
             </a>
           </div>
         </div>
-      </div>
-      {/* Bottom */}
+      </div>      
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center pt-6 text-xs text-black gap-4">
         <div>Copyright © 2025 Boolean Gaming - All rights reserved</div>
         <div className="flex items-center gap-6">
