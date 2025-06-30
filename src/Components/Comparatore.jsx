@@ -1,12 +1,18 @@
 import { useContext} from "react";
 import { GlobalContext } from "../context/globalContext";
+import useGameStatus from "../Hooks/useGameStatus";
 
 export default function Comparatore(){
 
-  const { compareList, removeFromCompare, favorites, addToFavorites, removeFromFavorites } = useContext(GlobalContext);
+  const { compareList, removeFromCompare, addToFavorites, removeFromFavorites } = useContext(GlobalContext);
   
-  // const isFavorite = favorites.some(favorite => favorite.id === game.id);
-
+// Componente Comparatore:
+// Mostra i videogiochi selezionati per il confronto, disposti affiancati in una griglia.
+// Se non ci sono elementi, viene mostrato un messaggio informativo.
+// Per ogni gioco:
+// - Viene controllato se è già nei preferiti per determinare quale bottone mostrare (aggiungi o rimuovi dai preferiti)
+// - Sono disponibili due azioni: rimuovere dal comparatore e aggiungere/rimuovere dai preferiti.
+// Se è stato selezionato solo un videogioco, viene mostrato un messaggio che invita a selezionarne almeno due per effettuare il confronto.
   return (
      <div className="m-4">      
       {compareList.length === 0 && (
@@ -22,7 +28,7 @@ export default function Comparatore(){
           </div>
           <div className="flex flex-wrap justify-center gap-8">
             {compareList.map(game => {
-              const isFavorite = favorites.some(favorite => favorite.id === game.id);
+              const { isFavorite } = useGameStatus(game);
               return (
               <div key={game.id} className="max-w-sm bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
                   <img className="w-full h-48 object-cover" src={`/img/${game.imageUrl}`} alt={game.title} />

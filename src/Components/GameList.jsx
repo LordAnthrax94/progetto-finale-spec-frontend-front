@@ -2,10 +2,17 @@ import { useContext } from 'react';
 import { GlobalContext } from '../context/globalContext';
 import { Link } from 'react-router-dom';
 import SortButton from './SortComponent';
+import useGameStatus from '../Hooks/useGameStatus';
+
+// Componente GameList:
+// Mostra una lista di videogiochi passati come prop, ognuno rappresentato da una card.
+// È racchiuso nel componente SortButton, che permette di ordinare i giochi alfabeticamente (crescente o decrescente).
+// Per ogni videogioco viene verificata la presenza nei preferiti e nella lista di confronto, per adattare i pulsanti.
+// Lo stile è gestito con Tailwind CSS e i titoli sono linkabili alla pagina di dettaglio.
 
 export default function GameList({ videogames }){ 
   
-  const { addToFavorites, favorites, removeFromFavorites, addToCompare, compareList } = useContext(GlobalContext);  
+  const { addToFavorites, removeFromFavorites, addToCompare } = useContext(GlobalContext);  
   
     
   return (
@@ -13,8 +20,7 @@ export default function GameList({ videogames }){
       {(sortedVideogames) => (
         <div className='flex flex-wrap justify-center'>
           {sortedVideogames.map((videogame) => {
-            const isFavorite = favorites.some(favorite => favorite.id === videogame.id);
-            const isInCompare = compareList.some(game => game.id === videogame.id);
+            const {isFavorite, isInCompare} = useGameStatus(videogame)
             return (
               <div key={videogame.id} className="w-full sm:w-64 md:w-72 lg:w-80 max-w-xs bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 mt-5 mx-2 mb-6 flex flex-col">
                 <img className="w-full h-48 object-cover" src={`/img/${videogame.imageUrl}`} alt={videogame.title} />

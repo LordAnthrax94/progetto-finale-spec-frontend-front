@@ -1,15 +1,22 @@
 import { GlobalContext } from "../context/globalContext";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import useGameStatus from "../Hooks/useGameStatus";
 
 export default function GameCard({ videogame }) {
 
-  const { addToFavorites, removeFromFavorites, favorites, addToCompare, compareList } = useContext(GlobalContext)
+  const { addToFavorites, removeFromFavorites, addToCompare } = useContext(GlobalContext)
   
 
-  const isFavorite = favorites.some(favorite => favorite.id === videogame.id);
-  const isInCompare = compareList.some(game => game.id === videogame.id);
-  
+  const {isFavorite, isInCompare} = useGameStatus(videogame)
+
+  // Componente GameCard:
+  // Rappresenta una singola card di videogioco con stile gestito tramite Tailwind CSS.
+  // Verifica se il videogioco è già presente nei preferiti o nella lista di confronto.
+  // In base a queste verifiche, i pulsanti cambiano comportamento:
+  // - Aggiunge o rimuove dai preferiti
+  // - Aggiunge al comparatore (disabilitato se già presente)
+  // Include un link per tornare alla home page.
 
   return (    
     <div className="mt-10">

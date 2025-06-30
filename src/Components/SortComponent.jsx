@@ -5,11 +5,14 @@ export default function SortButton({ children, videogames }) {
   const [sortField, setSortField] = useState("title");
   const [sortOrder, setSortOrder] = useState(1);  
 
-// Funzione per ordinare i videogiochi in base al campo e all'ordine selezionati
+// Componente che permette di ordinare la lista in ordine Alfabetico, sia crescemte che decrescente
+//
+
+
     const sortedVideogames = useMemo(() => {
     if (!Array.isArray(videogames)) return [];
     return [...videogames].sort((a, b) =>
-      sortOrder === '1'
+      sortOrder === 1
         ? a[sortField].localeCompare(b[sortField])
         : b[sortField].localeCompare(a[sortField])
     );
