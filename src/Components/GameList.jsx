@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { GlobalContext } from '../context/globalContext';
 import { Link } from 'react-router-dom';
-import SortButton from './SortComponent';
+import SortButton from './SortButton';
 import useGameStatus from '../Hooks/useGameStatus';
 
 // Componente GameList:
