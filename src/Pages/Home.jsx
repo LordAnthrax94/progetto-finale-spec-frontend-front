@@ -35,7 +35,7 @@ export default function Home() {
   const [debouncedSearch, setDebouncedSearch] = useState('');
 
   // Ref che contiene la funzione debounce
-  const debounceRef = useRef(debounce(setDebouncedSearch, 500)); 
+  const debounceRef = useRef(debounce(setDebouncedSearch, 1000)); 
 
   // Stato per la categoria filtrata
   const [filteredCategory, setFilteredCategory] = useState('');

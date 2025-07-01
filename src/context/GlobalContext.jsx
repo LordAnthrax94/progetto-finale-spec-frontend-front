@@ -7,7 +7,7 @@ export function GlobalProvider({ children }) {
 
   // Stati principali
   const [videogames, setVideogames] = useState([]);
-  const [videogame, setVideogame] = useState(null);
+  const [videogame, setVideogame] = useState("");
   const [searchVideogames, setSearchVideogames] = useState([]);
   const [categoryVideogames, setCategoryVideogames] = useState([]);
   const [compareList, setCompareList] = useState([]);
